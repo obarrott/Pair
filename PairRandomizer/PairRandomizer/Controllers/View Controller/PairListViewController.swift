@@ -21,6 +21,8 @@ class PairListViewController: UIViewController {
         pairListTableView.delegate = self
         pairListTableView.dataSource = self
         
+        fetchPeopleAndReload()
+        
     }
     
     // MARK: - Actions
@@ -32,14 +34,31 @@ class PairListViewController: UIViewController {
     }
     
     @IBAction func randomButtonTapped(_ sender: Any) {
-        
+        PersonController.shared.randomizeList()
+        pairListTableView.reloadData()
     }
     
     
     
     // MARK: - Class Functions
+    func fetchPeopleAndReload() {
+        PersonController.shared.fetchAllPersons { (result) in
+            switch result {
+            case .success(let people):
+                PersonController.shared.peopleArray = people
+                DispatchQueue.main.async {
+                    self.pairListTableView.reloadData()
+                }
+            case .failure(let error):
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+            }
+        }
+    }
+    
+    
     func reloadData() {
         pairListTableView.reloadData()
+        
     }
     
     func presentAlertController() {
@@ -53,8 +72,17 @@ class PairListViewController: UIViewController {
         let addAction = UIAlertAction(title: "Add", style: .default) { (_) in
             guard let name = alertController.textFields?[0].text, !name.isEmpty else { return }
             
-            PersonController.shared.createPerson(name: name)
-            self.pairListTableView.reloadData()
+            PersonController.shared.createPerson(name: name) { (result) in
+                switch result {
+                case .success(let person):
+                    PersonController.shared.peopleArray.append(person)
+                    DispatchQueue.main.async {
+                        self.pairListTableView.reloadData()
+                    }
+                case .failure(let error):
+                    print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                }
+            }
         }
         alertController.addAction(cancelAction)
         alertController.addAction(addAction)
@@ -123,8 +151,29 @@ extension PairListViewController: UITableViewDelegate, UITableViewDataSource {
 //        let nameValue = PersonController.shared.keyArray[currentRow]
 //        guard let nameText = PersonController.shared.people[nameValue]?.name else { return UITableViewCell() }
         
-        print("\(nameText)")
+        
         cell.textLabel?.text = "\(nameText)"
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+          if editingStyle == .delete {
+              let personToDelete = PersonController.shared.peopleArray[indexPath.row]
+              guard let indexOfPersonToDelete =
+                  PersonController.shared.peopleArray.firstIndex(of: personToDelete) else { return }
+              PersonController.shared.delete(personToDelete) { (result) in
+                  switch result {
+                  case .success(let success):
+                      if success {
+                          PersonController.shared.peopleArray.remove(at: indexOfPersonToDelete)
+                          DispatchQueue.main.async {
+                              tableView.deleteRows(at: [indexPath], with: .fade)
+                          }
+                      }
+                  case .failure(let error):
+                      print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                  }
+              }
+          }
+      }
 }

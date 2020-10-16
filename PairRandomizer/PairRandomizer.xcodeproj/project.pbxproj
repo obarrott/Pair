@@ -15,6 +15,8 @@
 		A645DC7A2539F0BC008FC033 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645DC792539F0BC008FC033 /* Person.swift */; };
 		A645DC7C2539F0E4008FC033 /* PersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645DC7B2539F0E4008FC033 /* PersonController.swift */; };
 		A645DC7F2539F544008FC033 /* PairListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645DC7E2539F544008FC033 /* PairListViewController.swift */; };
+		A645DC83253A11C9008FC033 /* PersonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645DC82253A11C9008FC033 /* PersonError.swift */; };
+		A645DC86253A14B0008FC033 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A645DC85253A14B0008FC033 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		A645DC792539F0BC008FC033 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		A645DC7B2539F0E4008FC033 /* PersonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonController.swift; sourceTree = "<group>"; };
 		A645DC7E2539F544008FC033 /* PairListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairListViewController.swift; sourceTree = "<group>"; };
+		A645DC82253A11C9008FC033 /* PersonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonError.swift; sourceTree = "<group>"; };
+		A645DC85253A14B0008FC033 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A645DC86253A14B0008FC033 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +51,7 @@
 			children = (
 				A645DC5F2539EE61008FC033 /* PairRandomizer */,
 				A645DC5E2539EE61008FC033 /* Products */,
+				A645DC84253A14B0008FC033 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +66,7 @@
 		A645DC5F2539EE61008FC033 /* PairRandomizer */ = {
 			isa = PBXGroup;
 			children = (
+				A645DC81253A11BC008FC033 /* Helpers */,
 				A645DC752539F014008FC033 /* Model */,
 				A645DC772539F02C008FC033 /* Controllers */,
 				A645DC742539EE72008FC033 /* Resources */,
@@ -111,6 +118,22 @@
 				A645DC7E2539F544008FC033 /* PairListViewController.swift */,
 			);
 			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		A645DC81253A11BC008FC033 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A645DC82253A11C9008FC033 /* PersonError.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A645DC84253A14B0008FC033 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A645DC85253A14B0008FC033 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +212,7 @@
 				A645DC7F2539F544008FC033 /* PairListViewController.swift in Sources */,
 				A645DC612539EE61008FC033 /* AppDelegate.swift in Sources */,
 				A645DC632539EE61008FC033 /* SceneDelegate.swift in Sources */,
+				A645DC83253A11C9008FC033 /* PersonError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +356,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PairRandomizer/PairRandomizer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27P7HR5369;
 				INFOPLIST_FILE = PairRandomizer/Resources/Info.plist;
@@ -339,7 +364,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.owenbarrott.PairRandomizer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.owenbarrott.devmountain.Pair;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -350,6 +375,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PairRandomizer/PairRandomizer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27P7HR5369;
 				INFOPLIST_FILE = PairRandomizer/Resources/Info.plist;
@@ -357,7 +383,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.owenbarrott.PairRandomizer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.owenbarrott.devmountain.Pair;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
